@@ -1,0 +1,31 @@
+DROP TABLE IF EXISTS `log_entry`;
+
+CREATE TABLE `log_entry` (
+	`entry_id` bigint unsigned NOT NULL AUTO_INCREMENT,
+	`entry_timestamp` DATETIME NOT NULL,
+	`entry_cluster` varchar(64) DEFAULT NULL,
+	`entry_instance` varchar(255) DEFAULT NULL,
+	`entry_scheme` varchar(32) DEFAULT NULL,
+	`entry_uuid` varchar(36) DEFAULT NULL,
+	`entry_pid` bigint unsigned NOT NULL,
+	`entry_priority` enum('EMERG','ALERT','CRIT','ERR','WARNING','NOTICE','INFO','DEBUG') DEFAULT 'INFO',
+	`entry_facility` varchar(32) DEFAULT NULL,
+	`entry_file` text DEFAULT NULL,
+	`entry_line` bigint unsigned DEFAULT NULL,
+	`entry_message` text DEFAULT NULL,
+	PRIMARY KEY (`entry_id`),
+	INDEX `entry_cluster` (`entry_cluster`),
+	INDEX `entry_instance` (`entry_instance`),
+	INDEX `entry_scheme` (`entry_scheme`),
+	INDEX `entry_uuid` (`entry_uuid`),
+	INDEX `entry_priority` (`entry_priority`),
+	INDEX `entry_facility` (`entry_facility`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+
+CREATE TABLE `log_count` (
+	`log_cluster` varchar(64) DEFAULT NULL,
+	`log_instance` varchar(255) DEFAULT NULL,
+	`log_count` bigint unsigned NOT NULL,
+	INDEX `log_cluster` (`log_cluster`),
+	INDEX `log_instance` (`log_instance`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
