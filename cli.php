@@ -132,7 +132,7 @@ class LoggerCLI extends CommandLine
 		return true;
 	}
 	
-	protected function perform___CLI__()
+	public function main($args)
 	{
 		Logger::$stderr = array();
 		if($this->stderr) Logger::$stderr[] = $this->pri[1];
