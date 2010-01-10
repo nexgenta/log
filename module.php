@@ -45,18 +45,18 @@ class LogModule extends Module
 		if($targetVersion == 1)
 		{
 			$t = $this->db->schema->tableWithOptions('log_entry', DBTable::CREATE_ALWAYS);
-			$t->columnWithSpec('entry_id', DBTable::SERIAL, null, DBTable::NOT_NULL, null, 'Log entry identifier');
-			$t->columnWithSpec('entry_timestamp', DBTable::DATETIME, null, DBTable::NOT_NULL, null, 'Timestamp of the entry');
-			$t->columnWithSpec('entry_cluster', DBTable::VARCHAR, 64, DBTable::NULLS, null, 'The name of the cluster associated with this entry, if any');
-			$t->columnWithSpec('entry_instance', DBTable::VARCHAR, 255, DBTable::NULLS, null, 'The name of the instance associated with this entry, if any');
-			$t->columnWithSpec('entry_scheme', DBTable::VARCHAR, 32, DBTable::NULLS, null, 'The scheme of the user associated with this entry, if any');
-			$t->columnWithSpec('entry_uuid', DBTable::UUID, null, DBTable::NULLS, null, 'The UUID of the user associated with this entry, if any');
-			$t->columnWithSpec('entry_pid', DBTable::INT, null, DBTable::NOT_NULL|DBTable::UNSIGNED, null, 'The ID of the logging process');
-			$t->columnWithSpec('entry_priority', DBTable::ENUM, array('EMERG','ALERT','CRIT','ERR','WARNING','NOTICE','INFO','DEBUG'), DBTable::NOT_NULL, 'INFO', 'The priority associated with this entry');
-			$t->columnWithSpec('entry_facility', DBTable::VARCHAR, 32, DBTable::NULLS, null, 'The name of the facility associated with this entry, if any');
-			$t->columnWithSpec('entry_file', DBTable::TEXT, null, DBTable::NULLS, null, 'The source file associated with this entry, if any');
-			$t->columnWithSpec('entry_line', DBTable::INT, null, DBTable::NULLS|DBTable::UNSIGNED, null, 'The line number associated with this entry, if any');
-			$t->columnWithSpec('entry_message', DBTable::TEXT, null, DBTable::NULLS, null, 'The log messsage');
+			$t->columnWithSpec('entry_id', DBType::SERIAL, null, DBCol::NOT_NULL|DBCol::BIG, null, 'Log entry identifier');
+			$t->columnWithSpec('entry_timestamp', DBType::DATETIME, null, DBCol::NOT_NULL, null, 'Timestamp of the entry');
+			$t->columnWithSpec('entry_cluster', DBType::VARCHAR, 64, DBCol::NULLS, null, 'The name of the cluster associated with this entry, if any');
+			$t->columnWithSpec('entry_instance', DBType::VARCHAR, 255, DBCol::NULLS, null, 'The name of the instance associated with this entry, if any');
+			$t->columnWithSpec('entry_scheme', DBType::VARCHAR, 32, DBCol::NULLS, null, 'The scheme of the user associated with this entry, if any');
+			$t->columnWithSpec('entry_uuid', DBType::UUID, null, DBCol::NULLS, null, 'The UUID of the user associated with this entry, if any');
+			$t->columnWithSpec('entry_pid', DBType::INT, null, DBCol::NOT_NULL|DBCol::UNSIGNED|DBCol::BIG, null, 'The ID of the logging process');
+			$t->columnWithSpec('entry_priority', DBType::ENUM, array('EMERG','ALERT','CRIT','ERR','WARNING','NOTICE','INFO','DEBUG'), DBCol::NOT_NULL, 'INFO', 'The priority associated with this entry');
+			$t->columnWithSpec('entry_facility', DBType::VARCHAR, 32, DBCol::NULLS, null, 'The name of the facility associated with this entry, if any');
+			$t->columnWithSpec('entry_file', DBType::TEXT, null, DBCol::NULLS, null, 'The source file associated with this entry, if any');
+			$t->columnWithSpec('entry_line', DBType::INT, null, DBCol::NULLS|DBCol::UNSIGNED, null, 'The line number associated with this entry, if any');
+			$t->columnWithSpec('entry_message', DBType::TEXT, null, DBCol::NULLS, null, 'The log messsage');
 			$t->indexWithSpec(null, DBIndex::PRIMARY, 'entry_id');
 			$t->indexWithSpec('entry_cluster', DBIndex::INDEX, 'entry_cluster');
 			$t->indexWithSpec('entry_instance', DBIndex::INDEX, 'entry_instance');
@@ -69,9 +69,9 @@ class LogModule extends Module
 		if($targetVersion == 2)
 		{
 			$t = $this->db->schema->tableWithOptions('log_count', DBTable::CREATE_ALWAYS);
-			$t->columnWithSpec('log_cluster', DBTable::VARCHAR, 64, DBTable::NULLS, null, 'The name of the cluster being counted');
-			$t->columnWithSpec('log_instance', DBTable::VARCHAR, 255, DBTable::NULLS, null, 'The name of the instance being counted');
-			$t->columnWithSpec('log_count', DBTable::INT, null, DBTable::NOT_NULL|DBTable::UNSIGNED, null, 'The count of log entries');
+			$t->columnWithSpec('log_cluster', DBType::VARCHAR, 64, DBCol::NULLS, null, 'The name of the cluster being counted');
+			$t->columnWithSpec('log_instance', DBType::VARCHAR, 255, DBCol::NULLS, null, 'The name of the instance being counted');
+			$t->columnWithSpec('log_count', DBType::INT, null, DBCol::NOT_NULL|DBCol::UNSIGNED|DBCol::BIG, null, 'The count of log entries');
 			$t->indexWithSpec('log_cluster', DBIndex::INDEX, 'log_cluster');
 			$t->indexWithSpec('log_instance', DBIndex::INDEX, 'log_instance');
 			return $t->apply();
