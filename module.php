@@ -30,6 +30,8 @@
 
 uses('module');
 
+if(!defined('LOG_IRI')) define('LOG_IRI', null);
+
 class LogModule extends Module
 {
 	public $latestVersion = 2;
