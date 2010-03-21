@@ -31,7 +31,7 @@
 
 class LogModuleInstall extends ModuleInstaller
 {
-	public $moduleOrder = 10;
+	public $moduleOrder = 100;
 	
 	public function writeAppConfig($file)
 	{
