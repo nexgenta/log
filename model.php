@@ -33,6 +33,8 @@ uses('model');
 
 global $LOG_SYSLOG, $LOG_SYSLOG_FACILITY, $LOG_BACKTRACE, $LOG_STDERR;
 
+if(!defined('LOG_IRI')) define('LOG_IRI', null);
+
 if(!isset($LOG_SYSLOG)) $LOG_SYSLOG = array(LOG_CRIT, LOG_ALERT, LOG_EMERG);
 if(!isset($LOG_SYSLOG_FACILITY)) $LOG_SYSLOG_FACILITY = LOG_INFO;
 if(!isset($LOG_BACKTRACE)) $LOG_BACKTRACE = array(LOG_CRIT, LOG_ALERT, LOG_EMERG, LOG_DEBUG);
@@ -163,7 +165,7 @@ class Logger extends Model
 			openlog($ident, LOG_ODELAY|LOG_PID, self::$syslogFacility);		
 			syslog($priority, $message);
 		}
-		if(in_array($priority, self::$stderr))
+		if(self::$stderr === true || (is_array(self::$stderr) && in_array($priority, self::$stderr)))
 		{
 			fwrite(self::$ferr, '[' . strftime('%Y-%m-%d %H:%M:%S %z') . self::$clusterSpec . '] ' .  $msg . $message . "\n");	
 		}
