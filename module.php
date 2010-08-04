@@ -37,9 +37,11 @@ class LogModule extends Module
 	public $latestVersion = 2;
 	public $moduleId = 'com.nexgenta.log';
 	
-	public static function getInstance($args = null, $className = null, $defaultDbIri = null)
+	public static function getInstance($args = null)
 	{
-		return Model::getInstance($args, ($className ? $className : 'LogModule'), ($defaultDbIri ? $defaultDbIri : LOG_IRI));
+		if(!isset($args['class'])) $args['class'] = 'LogModule';
+		if(!isset($args['db'])) $args['db'] = LOG_IRI;
+		return parent::getInstance($args);
 	}
 
 	public function updateSchema($targetVersion)

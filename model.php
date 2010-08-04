@@ -84,7 +84,9 @@ class Logger extends Model
 	
 	public static function getInstance($args = null, $className = null, $defaultDbIri = null)
 	{
-		return Model::getInstance($args, ($className ? $className : 'Logger'), ($defaultDbIri ? $defaultDbIri : LOG_IRI));
+		if(!isset($args['class'])) $args['class'] = 'Logger';
+		if(!isset($args['db'])) $args['db'] = LOG_IRI;
+		return parent::getInstance($args);
 	}
 		
 	public function __construct($args)
