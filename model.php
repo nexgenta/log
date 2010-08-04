@@ -82,7 +82,7 @@ class Logger extends Model
 		self::$log->logEvent($message, $priority, $ident, $userScheme, $userUuid);
 	}
 	
-	public static function getInstance($args = null, $className = null, $defaultDbIri = null)
+	public static function getInstance($args = null)
 	{
 		if(!isset($args['class'])) $args['class'] = 'Logger';
 		if(!isset($args['db'])) $args['db'] = LOG_IRI;
